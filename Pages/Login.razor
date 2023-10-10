@@ -1,19 +1,22 @@
-@page "/"
-@using models;
-@using blazorapp.Services;
-@inject IAuthenticationService AuthenticationService;
+@page "/login"
+@using models
+@using blazorapp.Services.Account
+@inject IAccountService _accountService
+@inject NavigationManager _navigationManager;
 
 
 <h1>Ingresar</h1>
 <EditForm Model="loginModel" OnValidSubmit="HandleLoginAsync">
   <div>
     <label for="user">Usuario</label>
-    <input type="text" id="user">
+    <input type="text" id="user" @bind-value="loginModel.UserName">
   </div>
   <div>
     <label for="password">Contraseña</label>
-    <input type="password" id="password">
+        <input type="password" id="password" @bind-value="loginModel.Password">
   </div>
+
+  <button type="submit">Login</button>
 </EditForm>
 
 @if (errorMessage is not null)
@@ -23,24 +26,24 @@
 
 @code
 {
-  private LoginModel? loginModel { get; set; }
-  private string? errorMessage;
-  private DateTime? expiration;
+    private LoginModel? loginModel { get; set; }
+    private string? errorMessage;
+    private DateTime? expiration;
 
 
-  protected override void OnInitialized()
-  {
-    loginModel = new LoginModel();
-    base.OnInitialized();
-  }
-
-  private async Task HandleLoginAsync()
-  {
-    try
+    protected override void OnInitialized()
     {
-      expiration = await AuthenticationService.LoginAsync(loginModel);
+        loginModel = new LoginModel();
+        base.OnInitialized();
+    }
 
-      errorMessage = null;
+    private async Task HandleLoginAsync()
+    {
+        try
+        {
+            var loginResult = await _accountService.LoginAsync(loginModel.UserName, loginModel.Password);
+            expiration = loginResult.Expiration;
+            errorMessage = null;
     }
     catch (Exception ex)
     {

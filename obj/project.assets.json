@@ -864,24 +864,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sol\\.nuget\\packages\\": {}
+    "C:\\Users\\agus_\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\Sol\\Desktop\\ProgramacionAgus\\blazorapp\\blazorapp.csproj",
+      "projectUniqueName": "C:\\Users\\agus_\\source\\repos\\BlazorTodoServer\\blazorapp.csproj",
       "projectName": "blazorapp",
-      "projectPath": "D:\\Users\\Sol\\Desktop\\ProgramacionAgus\\blazorapp\\blazorapp.csproj",
-      "packagesPath": "C:\\Users\\Sol\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\Sol\\Desktop\\ProgramacionAgus\\blazorapp\\obj\\",
+      "projectPath": "C:\\Users\\agus_\\source\\repos\\BlazorTodoServer\\blazorapp.csproj",
+      "packagesPath": "C:\\Users\\agus_\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\agus_\\source\\repos\\BlazorTodoServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Sol\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\agus_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -932,7 +934,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

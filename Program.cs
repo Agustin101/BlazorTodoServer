@@ -1,26 +1,26 @@
-using Blazored.SessionStorage;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using blazorapp;
+using blazorapp.Authentication;
 using blazorapp.Handlers;
-using blazorapp.Services;
+using blazorapp.Services.Account;
+using blazorapp.Services.Todos;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAuthenticationCore();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddSingleton<AuthenticationHandler>();
 
 builder.Services.AddHttpClient("ServerApi")
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ServerUrl"] ?? ""))
-                .AddHttpMessageHandler<AuthenticationHandler>();
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration["ServerUrl"] ?? ""));
+                //.AddHttpMessageHandler<AuthenticationHandler>();
 
-builder.Services.AddSingleton<IAuthenticationService, AuthenticationService>();
-
-builder.Services.AddBlazoredSessionStorageAsSingleton();
-
+builder.Services.AddScoped<ProtectedSessionStorage>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ITodoService, TodoService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

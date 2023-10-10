@@ -1,4 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using blazorapp.Authentication;
+@inject AuthenticationStateProvider _authProvider
+
+@inherits LayoutComponentBase
 
 <PageTitle>blazorapp</PageTitle>
 
@@ -9,7 +12,10 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            @if (authState is not null && authState.User.Identity.IsAuthenticated)
+            {
+                <button @onclick="LogOut">Log out</button>
+            }
         </div>
 
         <article class="content px-4">
@@ -17,3 +23,21 @@
         </article>
     </main>
 </div>
+
+@code{
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState{ get; set; }
+    private AuthenticationState authState;
+
+    protected override async Task OnInitializedAsync()
+    {
+        authState = await authenticationState;
+    }
+
+    private async Task LogOut()
+    {
+        var customProvider = _authProvider as CustomAuthenticationStateProvider;
+        customProvider.UpdateAuthenticationState(null);
+        StateHasChanged();
+    }
+}

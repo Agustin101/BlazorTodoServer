@@ -1,0 +1,49 @@
+﻿@page "/todos"
+@using blazorapp.Services.Todos
+@using blazorapp.Services.Account
+@inject ITodoService _todoService
+@inject IAccountService _accountService
+
+<AuthorizeView>
+    <Authorized>
+        <h1>Bienvenido @user </h1>
+    </Authorized>
+    <NotAuthorized>
+        <p>Ingresa para ver tus tareas pendientes!</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code
+{
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    private string? errorMessage;
+    private DateTime? expiration;
+    private string user = "";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationState;
+        user = authState.User.Identity.Name;
+        base.OnInitialized();
+    }
+
+    private async Task HandleLoginAsync()
+    {
+        try
+        {
+
+
+            errorMessage = null;
+        }
+        catch (Exception ex)
+        {
+            expiration = null;
+
+            errorMessage = ex.Message;
+        }
+    }
+}
